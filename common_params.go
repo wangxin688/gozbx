@@ -20,3 +20,19 @@ type GroupId struct {
 type HostId struct {
 	HostId string `json:"hostid"`
 }
+
+
+type TemplatedId struct {
+	TemplatedId string `json:"templateid"`
+}
+
+type Tag struct {
+	Tag_ string `json:"tag"`
+	Value string `json:"value"`
+}
+
+type Macro struct {
+	Macro_ string `json:"macro"`
+	Value string `json:"value"`
+	Description string `json:"description,omitempty"`
+}

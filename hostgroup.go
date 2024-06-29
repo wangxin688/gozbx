@@ -60,7 +60,7 @@ func (hg *HosGroupImpl) Get(params HostGroupGet) (*Response, error) {
 		Params: params,
 		Method: "hostgroup.get",
 	}
-	return hg.z.rpc(request)
+	return hg.z.Rpc(request)
 }
 
 func (hg *HosGroupImpl) Create(params HostGroupCreate) (*Response, error) {
@@ -68,7 +68,7 @@ func (hg *HosGroupImpl) Create(params HostGroupCreate) (*Response, error) {
 		Params: params,
 		Method: "hostgroup.create",
 	}
-	return hg.z.rpc(request)
+	return hg.z.Rpc(request)
 }
 
 func (hg *HosGroupImpl) Update(params HostGroupUpdate) (*Response, error) {
@@ -76,7 +76,7 @@ func (hg *HosGroupImpl) Update(params HostGroupUpdate) (*Response, error) {
 		Params: params,
 		Method: "hostgroup.update",
 	}
-	return hg.z.rpc(request)
+	return hg.z.Rpc(request)
 }
 
 func (hg *HosGroupImpl) Delete(hostgroupIds []string) (*Response, error) {
@@ -85,7 +85,7 @@ func (hg *HosGroupImpl) Delete(hostgroupIds []string) (*Response, error) {
 		Params: hostgroupIds,
 		Method: "hostgroup.delete",
 	}
-	return hg.z.rpc(request)
+	return hg.z.Rpc(request)
 }
 
 func (hg *HosGroupImpl) MassAdd(params HostGroupMassAdd) (*Response, error) {
@@ -93,7 +93,7 @@ func (hg *HosGroupImpl) MassAdd(params HostGroupMassAdd) (*Response, error) {
 		Params: params,
 		Method: "hostgroup.massadd",
 	}
-	return hg.z.rpc(request)
+	return hg.z.Rpc(request)
 }
 
 func (hg *HosGroupImpl) MassRemove(params HostGroupMassRemove) (*Response, error) {
@@ -101,7 +101,7 @@ func (hg *HosGroupImpl) MassRemove(params HostGroupMassRemove) (*Response, error
 		Params: params,
 		Method: "hostgroup.massremove",
 	}
-	return hg.z.rpc(request)
+	return hg.z.Rpc(request)
 }
 
 func (hg *HosGroupImpl) MassUpdate(params HostGroupMassUpdate) (*Response, error) {
@@ -109,5 +109,5 @@ func (hg *HosGroupImpl) MassUpdate(params HostGroupMassUpdate) (*Response, error
 		Params: params,
 		Method: "hostgroup.massupdate",
 	}
-	return hg.z.rpc(request)
+	return hg.z.Rpc(request)
 }

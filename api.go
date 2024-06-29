@@ -101,20 +101,16 @@ func (z *ZbxAPI) Login(username, password string) error {
 	return nil
 }
 
-func (z *ZbxAPI) rpc(params any) (*Response, error) {
+//
+func (z *ZbxAPI) Rpc(req *Request) (*Response, error) {
 	if z == nil {
 		return nil, fmt.Errorf("ZbxAPI instance is nil")
 	}
 	if z.token == "" {
 		return nil, fmt.Errorf("authentication required, please login first or set token first")
 	}
-	req := &Request{
-		JsonRpc: "2.0",
-		Method:  "user.login",
-		Params:  params,
-		Id:      atomic.AddUint64(&requestId, 1),
-	}
-
+	req.Id = atomic.AddUint64(&requestId, 1)
+	req.JsonRpc = "2.0"
 	resp, err := z.client.R().SetBody(req).Post("/api_jsonrpc.php")
 	if err != nil {
 		return nil, err

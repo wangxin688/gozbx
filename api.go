@@ -47,10 +47,7 @@ func (rsp *Response) IsError() error {
 }
 
 func (rsp *Response) GetResult(v any) error {
-	err := json.Unmarshal(rsp.Result.([]byte), v)
-	if err != nil {
-		return nil
-	}
+	json.Unmarshal(rsp.Result.([]byte), v)
 	return nil
 }
 

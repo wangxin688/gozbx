@@ -1,6 +1,8 @@
 package gozbx
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+)
 
 type HostGroupModel struct {
 	GroupId string `json:"groupid"`
@@ -20,6 +22,10 @@ type HostGroupGet struct {
 type HostGroupCreate struct {
 	Host string    `json:"name"`
 	Uuid uuid.UUID `json:"uuid,omitempty"`
+}
+
+type HostGroupIdResponse struct {
+	GroupIds []string `json:"groupids"`
 }
 
 type HostGroupUpdate struct {
@@ -55,59 +61,97 @@ type HosGroupImpl struct {
 	z *ZbxAPI
 }
 
-func (hg *HosGroupImpl) Get(params HostGroupGet) (*Response, error) {
+func (hg *HosGroupImpl) Get(params HostGroupGet) (res []HostGroupModel, err error) {
 	request := &Request{
 		Params: params,
 		Method: "hostgroup.get",
 	}
-	return hg.z.Rpc(request)
+	resp, err := hg.z.Rpc(request)
+	if err != nil {
+		return nil, err
+	}
+	resp.GetResult(&res)
+	return
+
 }
 
-func (hg *HosGroupImpl) Create(params HostGroupCreate) (*Response, error) {
+func (hg *HosGroupImpl) Create(params HostGroupCreate) (rsp string,err error) {
 	request := &Request{
 		Params: params,
 		Method: "hostgroup.create",
 	}
-	return hg.z.Rpc(request)
+	resp, err:= hg.z.Rpc(request)
+	if err != nil {
+		return "", err
+	}
+	hgr := HostGroupIdResponse{}
+	resp.GetResult(&hgr)
+	return hgr.GroupIds[0], nil
 }
 
-func (hg *HosGroupImpl) Update(params HostGroupUpdate) (*Response, error) {
+func (hg *HosGroupImpl) Update(params HostGroupUpdate) (rsp string, err error) {
 	request := &Request{
 		Params: params,
 		Method: "hostgroup.update",
 	}
-	return hg.z.Rpc(request)
+	resp, err:= hg.z.Rpc(request)
+	if err != nil {
+		return "nil", err
+	}
+	hgr := HostGroupIdResponse{}
+	resp.GetResult(&hgr)
+	return hgr.GroupIds[0], nil
 }
 
-func (hg *HosGroupImpl) Delete(hostgroupIds []string) (*Response, error) {
+func (hg *HosGroupImpl) Delete(hostgroupIds []string) (rsp []string , err error) {
 
 	request := &Request{
 		Params: hostgroupIds,
 		Method: "hostgroup.delete",
 	}
-	return hg.z.Rpc(request)
+	resp, err:= hg.z.Rpc(request)
+	if err != nil {
+		return nil, err
+	}
+	resp.GetResult(&rsp)
+	return
 }
 
-func (hg *HosGroupImpl) MassAdd(params HostGroupMassAdd) (*Response, error) {
+func (hg *HosGroupImpl) MassAdd(params HostGroupMassAdd) (rsp *HostGroupIdResponse, err error) {
 	request := &Request{
 		Params: params,
 		Method: "hostgroup.massadd",
 	}
-	return hg.z.Rpc(request)
+	resp, err:= hg.z.Rpc(request)
+	if err != nil {
+		return nil, err
+	}
+	resp.GetResult(&rsp)
+	return
 }
 
-func (hg *HosGroupImpl) MassRemove(params HostGroupMassRemove) (*Response, error) {
+func (hg *HosGroupImpl) MassRemove(params HostGroupMassRemove) (rsp *HostGroupIdResponse, err error) {
 	request := &Request{
 		Params: params,
 		Method: "hostgroup.massremove",
 	}
-	return hg.z.Rpc(request)
+	resp, err:= hg.z.Rpc(request)
+	if err != nil {
+		return nil, err
+	}
+	resp.GetResult(&rsp)
+	return
 }
 
-func (hg *HosGroupImpl) MassUpdate(params HostGroupMassUpdate) (*Response, error) {
+func (hg *HosGroupImpl) MassUpdate(params HostGroupMassUpdate) (rsp *HostGroupIdResponse, err error) {
 	request := &Request{
 		Params: params,
 		Method: "hostgroup.massupdate",
 	}
-	return hg.z.Rpc(request)
+	resp, err:= hg.z.Rpc(request)
+	if err != nil {
+		return nil, err
+	}
+	resp.GetResult(&rsp)
+	return
 }
